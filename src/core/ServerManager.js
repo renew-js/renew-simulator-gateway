@@ -8,14 +8,21 @@ class ServerManager {
         this.init();
     }
 
+    registerHandlers (handlers) {
+        this.io.on('connection', handlers);
+    }
+
     init () {
         this.io = new Server(this.config.port, this.config.options);
-        this.io.on('connection', (socket) => {
+
+        this.registerHandlers((socket) => {
             console.log('ServerManager: Client connected.');
+
             socket.on('disconnect', () => {
                 console.log('ServerManager: Client disconnected.');
             });
         });
+
         console.log(`ServerManager: Listening on port ${this.config.port}.`);
     }
 

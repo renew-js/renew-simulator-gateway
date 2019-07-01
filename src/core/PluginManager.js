@@ -2,25 +2,27 @@ class PluginManager {
 
     constructor (serverManager) {
         this.serverManager = serverManager;
-        this.plugins = new Set();
-        this.socket = null;
-        this.listen();
+        this.plugins = {};
+        this.registerHandlers();
     }
 
-    listen () {
-        this.socket = this.serverManager.io.on('connection', (socket) => {
-            socket.emit('plugin.list', Array.from(this.plugins));
+    registerHandlers () {
+        this.serverManager.registerHandlers((socket) => {
+            socket.emit('plugin.list', Object.values(this.plugins));
         });
     }
 
-    register (plugin) {
-        this.plugins.add(plugin);
+    registerPlugin (plugin) {
+        this.plugins[plugin.name] = plugin;
     }
 
-    initialize () {
-        return Promise.all(Array.from(this.plugins).map((plugin) => {
-            const name = plugin.constructor.name;
-            console.log(`PluginManager: Initializing ${name} ...`);
+    getPlugin (pluginName) {
+        return this.plugins[pluginName];
+    }
+
+    initializePlugins () {
+        return Promise.all(Object.values(this.plugins).map((plugin) => {
+            console.log(`PluginManager: Initializing ${plugin.name} ...`);
             return plugin.initialize(this.serverManager);
         }));
     }
