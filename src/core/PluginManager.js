@@ -20,13 +20,6 @@ class PluginManager {
         return this.plugins[pluginName];
     }
 
-    initializePlugins () {
-        return Promise.all(Object.values(this.plugins).map((plugin) => {
-            console.log(`PluginManager: Initializing ${plugin.name} ...`);
-            return plugin.initialize(this.serverManager);
-        }));
-    }
-
 }
 
 module.exports = PluginManager;

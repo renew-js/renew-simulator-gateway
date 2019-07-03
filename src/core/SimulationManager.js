@@ -8,13 +8,28 @@ class SimulationManager {
 
     registerHandlers () {
         this.serverManager.registerHandlers((socket) => {
-            socket.on('simulation.start', this.start.bind(this));
+            socket.on('simulation.init', (formalism, data) => {
+                this.getPlugin(formalism.plugin)
+                    .initSimulation(formalism.id, data);
+            });
+
+            socket.on('simulation.step', (formalism) => {
+                this.getPlugin(formalism.plugin)
+                    .step();
+            });
         });
     }
 
-    start (formalism, data) {
-        const plugin = this.pluginManager.getPlugin(formalism.plugin);
-        plugin.start(formalism.id, data);
+    initSimulation () {
+
+    }
+
+    terminateSimulation () {
+
+    }
+
+    getPlugin (pluginName) {
+        return this.pluginManager.getPlugin(pluginName);
     }
 
 }
