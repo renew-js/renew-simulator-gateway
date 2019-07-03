@@ -12,3 +12,5 @@ const simualtionManager = new SimulationManager(serverManager, pluginManager);
 pluginsConfig.forEach((plugin) => {
     pluginManager.registerPlugin(plugin);
 });
+
+pluginManager.initPlugins();

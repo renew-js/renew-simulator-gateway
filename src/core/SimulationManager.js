@@ -8,24 +8,25 @@ class SimulationManager {
 
     registerHandlers () {
         this.serverManager.registerHandlers((socket) => {
-            socket.on('simulation.init', (formalism, data) => {
+            socket.on('simulation.init', (
+                formalism,
+                netInstance,
+                serializedData
+            ) => {
                 this.getPlugin(formalism.plugin)
-                    .initSimulation(formalism.id, data);
+                    .initSimulation(formalism.id, netInstance, serializedData);
             });
 
             socket.on('simulation.step', (formalism) => {
                 this.getPlugin(formalism.plugin)
                     .step();
             });
+
+            socket.on('simulation.terminate', (formalism) => {
+                this.getPlugin(formalism.plugin)
+                    .terminateRun();
+            });
         });
-    }
-
-    initSimulation () {
-
-    }
-
-    terminateSimulation () {
-
     }
 
     getPlugin (pluginName) {

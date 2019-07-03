@@ -20,6 +20,13 @@ class PluginManager {
         return this.plugins[pluginName];
     }
 
+    initPlugins () {
+        Object.values(this.plugins).forEach((plugin) => {
+            console.log(`PluginManager: Initializing ${plugin.name} ...`);
+            plugin.initPlugin(this.serverManager);
+        });
+    }
+
 }
 
 module.exports = PluginManager;

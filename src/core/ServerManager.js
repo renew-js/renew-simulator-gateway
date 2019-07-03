@@ -26,10 +26,6 @@ class ServerManager {
         console.log(`ServerManager: Listening on port ${this.config.port}.`);
     }
 
-    attach () {
-        // this.io.attach(this.config.port);
-    }
-
 }
 
 module.exports = ServerManager;
