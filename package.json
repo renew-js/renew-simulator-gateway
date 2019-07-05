@@ -11,7 +11,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "renew-simulator-ccpn": "git+https://github.com/renew-js/renew-simulator-ccpn.git#simulator-initial-draft",
+    "renew-simulator-ccpn": "git+https://github.com/renew-js/renew-simulator-ccpn.git",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
