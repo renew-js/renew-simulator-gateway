@@ -8,38 +8,39 @@ class SimulationManager {
 
     registerHandlers () {
         this.serverManager.registerHandlers((socket) => {
+            let activePlugin = null;
+
             socket.on('simulation.init', (
                 formalism,
                 netInstance,
                 serializedData
             ) => {
-                this.getPlugin(formalism.plugin)
-                    .initSimulation(formalism.id, netInstance, serializedData);
+                activePlugin = this.getPlugin(formalism.plugin)
+                activePlugin.initSimulation(
+                    formalism.id,
+                    netInstance,
+                    serializedData
+                );
             });
 
-            socket.on('simulation.start', (formalism) => {
-                this.getPlugin(formalism.plugin)
-                    .start();
+            socket.on('simulation.start', () => {
+                activePlugin && activePlugin.start();
             });
 
-            socket.on('simulation.step', (formalism) => {
-                this.getPlugin(formalism.plugin)
-                    .step();
+            socket.on('simulation.step', () => {
+                activePlugin && activePlugin.step();
             });
 
-            socket.on('simulation.stop', (formalism) => {
-                this.getPlugin(formalism.plugin)
-                    .stop();
+            socket.on('simulation.stop', () => {
+                activePlugin && activePlugin.stop();
             });
 
-            socket.on('simulation.terminate', (formalism) => {
-                this.getPlugin(formalism.plugin)
-                    .terminate();
+            socket.on('simulation.terminate', () => {
+                activePlugin && activePlugin.terminate();
             });
 
-            socket.on('marking.get', (formalism) => {
-                this.getPlugin(formalism.plugin)
-                    .getMarking();
+            socket.on('marking.get', () => {
+                activePlugin && activePlugin.getMarking();
             });
         });
     }
