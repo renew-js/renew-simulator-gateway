@@ -29,6 +29,10 @@ class AbstractPlugin {
         socket.emit('marking.update', data);
     }
 
+    sendInitialized (socket) {
+        socket.emit('simulation.initialized');
+    }
+
     /**
      * @abstract
      */
