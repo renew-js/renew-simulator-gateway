@@ -24,23 +24,23 @@ class SimulationManager {
             });
 
             socket.on('simulation.start', () => {
-                activePlugin.start();
+                activePlugin && activePlugin.start();
             });
 
             socket.on('simulation.step', () => {
-                activePlugin.step();
+                activePlugin && activePlugin.step();
             });
 
             socket.on('simulation.stop', () => {
-                activePlugin.stop();
+                activePlugin && activePlugin.stop();
             });
 
             socket.on('simulation.terminate', () => {
-                activePlugin.terminate();
+                activePlugin && activePlugin.terminate();
             });
 
             socket.on('marking.get', () => {
-                activePlugin.getMarking();
+                activePlugin && activePlugin.getMarking();
             });
         });
     }
