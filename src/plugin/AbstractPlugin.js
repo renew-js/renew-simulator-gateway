@@ -7,18 +7,10 @@ class AbstractPlugin {
         this.name = this.getName();
         this.provides = this.getProvidedFormalisms();
         this.netInstance = null;
-        this.places = null;
     }
 
     initPlugin (serverManager) {
         serverManager.registerHandlers(this.registerHandlers.bind(this));
-    }
-
-    indexPlaces () {
-        this.places = this.netInstance.elements.filter((element) => {
-            return element.metaObject
-                && element.metaObject.targetType === 'place';
-        });
     }
 
     sendError (socket, data) {
