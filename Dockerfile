@@ -21,3 +21,5 @@ COPY --chown=node:node package.json .
 COPY --chown=node:node src ./src
 
 RUN npm install --quiet
+
+RUN cd node_modules/renew-simulator-ccpn && npm install git+https://github.com/renew-js/renew-simulator-gateway
